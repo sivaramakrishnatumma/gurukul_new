@@ -1,0 +1,1 @@
+export const EVT_TOGGLE_SIDE_NAV = "TOGGLE_SIDE_NAV";
