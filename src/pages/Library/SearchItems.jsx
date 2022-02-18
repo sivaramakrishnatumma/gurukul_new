@@ -1,4 +1,3 @@
-import * as React from "react";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import Divider from "@mui/material/Divider";
@@ -22,11 +21,11 @@ const Card = styled(MuiCard)(({ theme }) => ({
   },
 }));
 
-export default function CheckIn() {
+export default function SearchItems() {
   return (
     <>
       <h1 className="mt-4">Library Management</h1>
-      <Breadcrumb path={["Library Management", "Check-in Process"]} />
+      <Breadcrumb path={["Library Management", "Search Items"]} />
 
       <div>
         <Paper
@@ -60,7 +59,7 @@ export default function CheckIn() {
         <Card sx={{ minWidth: true }} className="login-grid">
           <CardContent>
             <div className="card-header">
-              <h3 className="title">Item List</h3>
+              <h3 className="title">Search Result</h3>
             </div>
             <div className="card-body">hi</div>
           </CardContent>

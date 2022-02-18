@@ -1,0 +1,4 @@
+export const EVT_GET_ITEMS_LIST = "GET_ITEMS_LIST";
+export const EVT_GET_ITEMS_LIST_SUCCESS = "GET_ITEMS_LIST_SUCCESS";
+export const EVT_ADD_ITEM = "ADD_ITEM";
+export const EVT_UPDATE_ITEM = "UPDATE_ITEM";

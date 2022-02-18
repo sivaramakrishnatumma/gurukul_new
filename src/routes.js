@@ -1,46 +1,67 @@
-import { Navigate, Outlet } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
-import LibraryHomePage from "./pages/LibraryHomePage";
 import Login from "./pages/Login";
 import Register from "./pages/register";
-import AppLayout from "./components/AppLayout";
-import AddBook from "./pages/Library/AddBook";
-import DisplayBooks from "./pages/Library/DisplayBooks";
-import SearchItem from './pages/Library/SearchItem';
-import ItemTypesManagement from './pages/Library/ItemTypesManagement';
-import CheckIn from './pages/Library/CheckIn';
-import CheckOut from './pages/Library/CheckOut';
-import TransactionSummary from './pages/Library/TransactionSummary';
-import ItemHistory from './pages/Library/ItemHistory';
-import BiblioItem from './pages/Library/BiblioItem';
-import CheckOutSummary from './pages/Library/CheckOutSummary';
+import AppLayout from "./components/layout/AppLayout";
+import AddItems from "./pages/Library/AddItems";
+import ListItems from "./pages/Library/ListItems";
+import SearchItems from "./pages/Library/SearchItems";
+import CheckIn from "./pages/Library/CheckIn";
+import CheckOut from "./pages/Library/CheckOut";
+import TransactionSummary from "./pages/Library/TransactionSummary";
+import ItemHistory from "./pages/Library/ItemHistory";
+import { BaseList } from "./components/shared/BaseList";
+import { BaseForm } from "./components/shared/BaseForm";
+
 const routes = (isLoggedIn) => [
   {
     path: "/app",
     element: <AppLayout />,
     children: [
       { path: "dashboard", element: <Dashboard /> },
-      { path: "library" },
-      { path: "addBook", element: <AddBook /> },
-      { path: "displayBooks", element: <DisplayBooks /> },
-      { path: "searchItem", element: <SearchItem /> },
-      { path: "itemTypesManagement", element: <ItemTypesManagement /> },
-      { path: "biblioItem", element: <BiblioItem /> },
-      { path: "checkIn", element: <CheckIn /> },
-      { path: "checkOut", element: <CheckOut /> },
-      { path: "checkOutSummery", element: <CheckOutSummary /> },
-      { path: "transactionSummary", element: <TransactionSummary /> },
-      { path: "itemHistory", element: <ItemHistory /> },
+      {
+        path: "item-types-manangement",
+        element: (
+          <BaseList
+            key="itemTypeList"
+            page="itemType"
+            title="List Item Types"
+          />
+        ),
+      },
+      {
+        path: "item-type-update",
+        element: <BaseForm key="itemTypeForm" page="itemType" />,
+      },
 
-      
-    // children: [
-    //   { path: "addBook", element: <AddBook/> },
-    //   { path: "displayBooks", element: <DisplayBooks/> },
-    // ],
-  
+      {
+        path: "biblio-items-manangement",
+        element: (
+          <BaseList
+            key="biblioItemList"
+            page="biblioItem"
+            title="List Biblio Items"
+          />
+        ),
+      },
+      {
+        path: "biblio-item-update",
+        element: <BaseForm key="biblioItemForm" page="biblioItem" />,
+      },
 
-      //   { path: '/account', element: <Account /> },
-      //   { path: '/', element: <Navigate to="/app/dashboard" /> }
+      {
+        path: "items-manangement",
+        element: <BaseList key="itemList" page="item" title="List Items" />,
+      },
+      {
+        path: "item-update",
+        element: <BaseForm key="itemForm" page="item" />,
+      },
+
+      { path: "check-in-process", element: <CheckIn /> },
+      { path: "check-out-process", element: <CheckOut /> },
+      // { path: "checkOutSummery", element: <CheckOutSummary /> },
+      { path: "transaction-summary", element: <TransactionSummary /> },
+      { path: "item-history-details", element: <ItemHistory /> },
     ],
   },
   {

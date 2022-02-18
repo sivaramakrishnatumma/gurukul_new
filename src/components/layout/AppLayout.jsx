@@ -1,11 +1,12 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
-import AppHeader from "./layout/AppHeader";
-import AppSideNav from "./layout/AppSideNav";
+import AppHeader from "./AppHeader";
+import AppSideNav from "./AppSideNav";
 import { useSelector } from "react-redux";
 import { Outlet } from "react-router";
+import { Alert } from "@mui/material";
 
 const drawerWidth = 225;
 
@@ -29,8 +30,9 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
 );
 
 const AppLayout = () => {
-  const [open, setOpen] = React.useState(false);
-  const menuOpen = useSelector(state => state.commonReducer.menuOpen);
+  const [open, setOpen] = useState(false);
+  const alert = useSelector((state) => state.commonReducer.alert);
+  const { menuOpen } = useSelector((state) => state.commonReducer);
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -38,6 +40,7 @@ const AppLayout = () => {
       <AppHeader setOpen={setOpen} />
       <AppSideNav open={menuOpen} setOpen={setOpen} />
       <Main open={menuOpen} sx={{ mt: "56px" }}>
+        {alert && <Alert severity={alert.type}>{alert.msg}</Alert>}
         <Outlet />
       </Main>
     </Box>

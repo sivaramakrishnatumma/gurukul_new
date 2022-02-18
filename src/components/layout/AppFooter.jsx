@@ -10,9 +10,8 @@ const Footer = styled("footer")({
     fontSize: "80%",
     fontWeight: 400,
     color: "#fff",
-    margin: 0
-  }
-
+    margin: 0,
+  },
 });
 
 const AppFooter = () => {

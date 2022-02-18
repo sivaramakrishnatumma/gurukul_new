@@ -49,7 +49,8 @@ const Login = () => {
             <img src={Logo} alt="Gurukul" title="Gurukul" />
             <h3 className="title">Login</h3>
           </div>
-          <div className="card-body">
+          <div className="card-body" style={{ textAlign: "center" }}>
+            {/* <SignInButton /> */}
             <FormGroup>
               <Grid container spacing={2} alignItems="center">
                 <Grid item xs={12}>

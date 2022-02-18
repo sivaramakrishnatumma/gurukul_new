@@ -5,7 +5,7 @@ import MuiButton from "@mui/material/Button";
 import MuiAppBar from "@mui/material/AppBar";
 import MenuIcon from "@mui/icons-material/Menu";
 import Logo from "../../assets/images/logo.jpg";
-import SearchBar from "../SearchBar";
+import SearchBar from "../common/SearchBar";
 import { toggleSideNav } from "../../redux/actions/common.actions";
 
 const AppBar = styled(MuiAppBar)(({ theme }) => ({
@@ -32,7 +32,7 @@ const AppHeader = () => {
   return (
     <AppBar position="fixed">
       <div className="left" style={{ display: "flex" }}>
-        <img src={Logo} style={{ height: "100%" }} />
+        <img src={Logo} alt="logo" style={{ height: "100%" }} />
         <MenuIconButton
           size="large"
           edge="start"
