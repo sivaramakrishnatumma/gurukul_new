@@ -4,8 +4,11 @@ export const biblioItemColumnConfig: IFieldConfig[] = [
   {
     field: "itemTypeCode",
     title: "Item Type Code",
-    type: "string",
+    type: "dropdown",
     required: true,
+    dataSource: "/ItemType",
+    valueField: "itemTypeCode",
+    displayField: "itemTypeCode",
   },
   {
     field: "isbn",

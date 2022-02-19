@@ -78,7 +78,7 @@ const AppSideNav = ({ open }) => {
                 item.children.map((child) => (
                   <List component="div" disablePadding key={child.name}>
                     <ListItemButton
-                      sx={{ pl: 4, height: 36, padding: "0 10px" }}
+                      sx={{ pl: 4, height: 38, padding: "0 10px" }}
                     >
                       <Link to={child.path} style={subNavStyle}>
                         <ListItemText

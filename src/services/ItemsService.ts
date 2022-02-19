@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig } from "axios";
 import * as Constants from "../constants/config";
+import { handleCatch } from "../utils/utility_fns";
 
 export async function getItemsService() {
   const config: AxiosRequestConfig = {
@@ -78,15 +79,6 @@ export async function getItemDetailsService(id: string) {
     }
   } catch (error: any) {
     return handleCatch(error);
-  }
-}
-
-function handleCatch(error: any) {
-  if (axios.isCancel(error)) {
-    console.error(error);
-  } else {
-    console.log(error);
-    return [];
   }
 }
 

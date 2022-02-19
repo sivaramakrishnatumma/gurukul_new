@@ -1,8 +1,16 @@
 import React, { FC } from "react";
-import { FormControl, TextField } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import { FormControl, TextField } from "@mui/material";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import DatePicker from "@mui/lab/DatePicker";
 import { ValidatorComponent } from "react-material-ui-form-validator";
 import { IFieldConfig } from "../../constants/types";
+
+interface IProps {
+  config: IFieldConfig;
+  onChange: Function;
+}
 
 const BootstrapInput = styled(TextField)(({ theme }) => ({
   width: "100%",
@@ -35,10 +43,10 @@ const BootstrapInput = styled(TextField)(({ theme }) => ({
 
 /**
  * @author
- * @class @TextInputValidatorComponent
+ * @class @DatePickerValidatorComponent
  **/
 
-class TextInputValidatorComponent extends ValidatorComponent {
+class DatePickerValidatorComponent extends ValidatorComponent {
   state = { isValid: true };
 
   renderValidatorComponent() {
@@ -51,16 +59,25 @@ class TextInputValidatorComponent extends ValidatorComponent {
       validatorListener,
       withRequiredValidator,
       containerProps,
+      onChange,
       ...rest
     } = this.props;
     const { isValid } = this.state;
 
     return (
-      <BootstrapInput
-        {...rest}
-        error={!isValid || error}
-        helperText={(!isValid && this.getErrorMessage()) || helperText}
-      />
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <DatePicker
+          onChange={onChange}
+          {...rest}
+          renderInput={(params: any) => (
+            <BootstrapInput
+              {...params}
+              error={!isValid || error}
+              helperText={(!isValid && this.getErrorMessage()) || helperText}
+            />
+          )}
+        />
+      </LocalizationProvider>
     );
   }
 }
@@ -72,19 +89,19 @@ interface IProps {
 
 /**
  * @author
- * @function @BaseTextInput
+ * @function @BaseDatePicker
  **/
 
-export const BaseTextInput: FC<IProps> = (props) => {
+export const BaseDatePicker: FC<IProps> = (props) => {
   const { config } = props;
 
-  const handleChange = (e: any) => {
-    props.onChange(config.field, e.target.value);
+  const handleChange = (val: any) => {
+    props.onChange(config.field, val);
   };
 
   return (
     <FormControl variant="standard" fullWidth>
-      <TextInputValidatorComponent
+      <DatePickerValidatorComponent
         label={config.title}
         onChange={handleChange}
         name={config.field}

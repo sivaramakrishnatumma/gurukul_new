@@ -31,13 +31,13 @@ export const itemColumnConfig: IFieldConfig[] = [
   {
     field: "replacementPriceDate",
     title: "Replacement Price Date",
-    type: "string",
+    type: "date",
     required: true,
   },
   {
     field: "dateLastBorrowed",
     title: "Date Last Borrowed",
-    type: "string",
+    type: "date",
     required: true,
   },
   {
@@ -49,14 +49,16 @@ export const itemColumnConfig: IFieldConfig[] = [
   {
     field: "itemStatusCode",
     title: "Item Status Code",
-    type: "string",
+    type: "dropdown",
     required: true,
+    dataSource: "/ItemStatus",
+    valueField: "itemStatusCode",
+    displayField: "itemStatusCodeName",
   },
-
   {
     field: "itemStatusReportedDate",
     title: "Item Status Reported Date",
-    type: "string",
+    type: "date",
     required: true,
   },
   {
@@ -74,8 +76,11 @@ export const itemColumnConfig: IFieldConfig[] = [
   {
     field: "homeBranchCode",
     title: "Home Branch Code",
-    type: "string",
+    type: "dropdown",
     required: true,
+    dataSource: "/Branch",
+    valueField: "branch_code",
+    displayField: "branch_name",
   },
   {
     field: "branchCode",
@@ -86,7 +91,7 @@ export const itemColumnConfig: IFieldConfig[] = [
   {
     field: "onloan",
     title: "Onloan",
-    type: "string",
+    type: "date",
     required: true,
   },
   {

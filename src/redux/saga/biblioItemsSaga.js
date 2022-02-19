@@ -11,6 +11,7 @@ import {
   EVT_SHOW_LOADER,
 } from "../actions/common.actions.types";
 import { EVT_GET_BIBLIO_ITEMS_LIST_SUCCESS } from "../actions/biblio-items.actions.types";
+import { handleValidationError } from "../../utils/utility_fns";
 
 export function* getBiblioItemsSaga() {
   try {
@@ -43,7 +44,7 @@ export function* addBiblioItemSaga({ value }) {
     }
   } catch (error) {
     console.error(error);
-    const msg = handleError(error.response);
+    const msg = handleValidationError(error.response);
     if (msg) {
       yield put({ type: EVT_SHOW_ERROR, value: msg });
     }
@@ -63,23 +64,11 @@ export function* updateBiblioItemSaga({ value }) {
       yield put({ type: EVT_HIDE_LOADER });
     }
   } catch (error) {
-    console.error(error);
-    const msg = handleError(error.response);
+    const msg = handleValidationError(error.response);
     if (msg) {
       yield put({ type: EVT_SHOW_ERROR, value: msg });
     }
 
     yield put({ type: EVT_HIDE_LOADER });
-  }
-}
-
-function handleError(response) {
-  const { status, data } = response;
-  if (status === 400) {
-    if (data.isValidationError) {
-    } else {
-      console.log(data.errors.message);
-      return data.errors.message;
-    }
   }
 }

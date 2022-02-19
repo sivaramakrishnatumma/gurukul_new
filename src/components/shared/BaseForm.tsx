@@ -11,6 +11,7 @@ import { IFieldConfig } from "../../constants/types";
 import { getDefaultValue, titlize } from "../../utils/utility_fns";
 import { ValidatorForm } from "react-material-ui-form-validator";
 import { PageConfig } from "../../constants/config";
+import { BaseDatePicker } from "../form/BaseDatePicker";
 
 interface IProps {
   page: string;
@@ -21,6 +22,7 @@ const ComponentsMap: any = {
   dropdown: BaseDropDownSelect,
   number: BaseTextInput,
   checkbox: BaseCheckBox,
+  date: BaseDatePicker
 };
 
 /**

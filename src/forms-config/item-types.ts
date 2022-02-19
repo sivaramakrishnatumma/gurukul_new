@@ -1,6 +1,5 @@
 import { IFieldConfig } from "../constants/types";
 
-
 export const itemTypeColumnConfig: IFieldConfig[] = [
   {
     field: "itemTypeCode",

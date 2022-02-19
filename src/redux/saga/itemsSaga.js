@@ -5,6 +5,7 @@ import {
   getItemsService,
   updateItemService,
 } from "../../services/ItemsService";
+import { handleValidationError } from "../../utils/utility_fns";
 import {
   EVT_HIDE_LOADER,
   EVT_SHOW_ERROR,
@@ -43,7 +44,7 @@ export function* addItemSaga({ value }) {
     }
   } catch (error) {
     console.error(error);
-    const msg = handleError(error.response);
+    const msg = handleValidationError(error.response);
     if (msg) {
       yield put({ type: EVT_SHOW_ERROR, value: msg });
     }
@@ -64,22 +65,11 @@ export function* updateItemSaga({ value }) {
     }
   } catch (error) {
     console.error(error);
-    const msg = handleError(error.response);
+    const msg = handleValidationError(error.response);
     if (msg) {
       yield put({ type: EVT_SHOW_ERROR, value: msg });
     }
 
     yield put({ type: EVT_HIDE_LOADER });
-  }
-}
-
-function handleError(response) {
-  const { status, data } = response;
-  if (status === 400) {
-    if (data.isValidationError) {
-    } else {
-      console.log(data.errors.message);
-      return data.errors.message;
-    }
   }
 }

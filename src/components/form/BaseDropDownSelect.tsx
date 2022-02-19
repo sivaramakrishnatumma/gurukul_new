@@ -5,6 +5,7 @@ import InputBase from "@mui/material/InputBase";
 import InputLabel from "@mui/material/InputLabel";
 import { IFieldConfig } from "../../constants/types";
 import { fetchData } from "../../services/commonService";
+import { ValidatorComponent } from "react-material-ui-form-validator";
 
 interface IProps {
   config: IFieldConfig;
@@ -17,6 +18,9 @@ const BootstrapLabel = styled(InputLabel)(({ theme }) => ({
   fontSize: "1.2rem",
   "&.Mui-focused": {
     color: "#1976d2",
+  },
+  "&.Mui-error + .MuiInputBase-root.Mui-error .MuiSelect-select": {
+    borderColor: "#d32f2f",
   },
 }));
 
@@ -42,7 +46,59 @@ const BootstrapInput = styled(InputBase)(({ theme }: any) => ({
       borderColor: "#1976d2",
     },
   },
+  "& + .MuiFormHelperText-root": {
+    marginLeft: "14px",
+  },
 }));
+
+/**
+ * @author
+ * @class @DropdownValidatorComponent
+ **/
+
+class DropdownValidatorComponent extends ValidatorComponent {
+  state = { isValid: true };
+
+  renderValidatorComponent() {
+    const {
+      error,
+      errorMessages,
+      validators,
+      requiredError,
+      helperText,
+      validatorListener,
+      withRequiredValidator,
+      containerProps,
+      source,
+      config,
+      ...rest
+    } = this.props;
+    const { isValid } = this.state;
+
+    return (
+      <FormControl variant="standard" fullWidth error={!isValid || error}>
+        <BootstrapLabel shrink htmlFor={config.field}>
+          {config.title}
+        </BootstrapLabel>
+        <Select {...rest} input={<BootstrapInput />}>
+          {source.map((item: any, index: number) => (
+            <MenuItem key={index} value={item[config.valueField || "value"]}>
+              {item[config.displayField || "name"]}
+            </MenuItem>
+          ))}
+        </Select>
+        <FormHelperText id="my-helper-text">
+          {(!isValid && this.getErrorMessage()) || helperText}
+        </FormHelperText>
+      </FormControl>
+    );
+  }
+}
+
+interface IProps {
+  config: IFieldConfig;
+  onChange: Function;
+}
 
 /**
  * @author
@@ -69,69 +125,15 @@ export const BaseDropDownSelect: FC<IProps> = (props) => {
   };
 
   return (
-    <FormControl variant="standard" fullWidth>
-      <BootstrapLabel shrink htmlFor={config.field}>
-        {config.title}
-        {source.length}
-      </BootstrapLabel>
-      <Select
-        id={config.field}
-        value={config.value}
-        name={config.field}
-        onChange={handleChange}
-        input={<BootstrapInput />}
-      >
-        {source.map((item: any, index: number) => (
-          <MenuItem key={index} value={item[config.valueField || "value"]}>
-            {item[config.displayField || "name"]}
-          </MenuItem>
-        ))}
-      </Select>
-      {/* {props.error && (
-        <FormHelperText id="component-helper-text">
-          {props.helperText}
-        </FormHelperText>
-      )} */}
-    </FormControl>
+    <DropdownValidatorComponent
+      id={config.field}
+      value={config.value}
+      name={config.field}
+      source={source}
+      config={config}
+      onChange={handleChange}
+      validators={config.required ? ["required"] : []}
+      errorMessages={["required"]}
+    />
   );
 };
-
-// export class BaseDropDownSelect extends ValidatorComponent {
-//   state: any = { isValid: true };
-
-//   errorText() {
-//     const { isValid } = this.state;
-
-//     if (isValid) {
-//       return null;
-//     }
-
-//     return this.getErrorMessage();
-//   }
-
-//   renderValidatorComponent() {
-//     /* eslint-disable no-unused-vars */
-//     const {
-//       error,
-//       errorMessages,
-//       validators,
-//       requiredError,
-//       helperText,
-//       validatorListener,
-//       withRequiredValidator,
-//       containerProps,
-//       config,
-//       onChange,
-//       ...rest
-//     } = this.props;
-//     const { isValid } = this.state;
-//     return (
-//       <DropDownSelect
-//         config={config}
-//         onChange={onChange}
-//         error={!isValid || error}
-//         helperText={(!isValid && this.errorText()) || helperText}
-//       />
-//     );
-//   }
-// }
