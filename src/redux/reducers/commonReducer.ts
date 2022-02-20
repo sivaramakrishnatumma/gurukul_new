@@ -3,16 +3,24 @@ import {
   EVT_SHOW_ERROR,
   EVT_SHOW_LOADER,
   EVT_TOGGLE_SIDE_NAV,
+  EVT_UPDATE_AUTH_INFO,
 } from "../actions/common.actions.types";
 
 const initialState = {
   menuOpen: false,
   loader: false,
   alert: null,
+  isAuthenticated: false,
 };
 
 const commonReducer = (state = initialState, { type, value }: any) => {
   switch (type) {
+    case EVT_UPDATE_AUTH_INFO:
+      return {
+        ...state,
+        isAuthenticated: true,
+        loggedInfo: {},
+      };
     case EVT_TOGGLE_SIDE_NAV:
       return {
         ...state,

@@ -1,4 +1,5 @@
+export const EVT_UPDATE_AUTH_INFO = "UPDATE_AUTH_INFO";
 export const EVT_TOGGLE_SIDE_NAV = "TOGGLE_SIDE_NAV";
 export const EVT_SHOW_LOADER = "SHOW_LOADER";
 export const EVT_HIDE_LOADER = "HIDE_LOADER";
-export const EVT_SHOW_ERROR = "SHOW_ERROR"
+export const EVT_SHOW_ERROR = "SHOW_ERROR";

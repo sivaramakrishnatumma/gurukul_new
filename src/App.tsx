@@ -1,5 +1,5 @@
 import { useNavigate, useRoutes } from "react-router-dom";
-import { useIsAuthenticated, useMsal, useAccount } from "@azure/msal-react";
+import { useMsal } from "@azure/msal-react";
 import { InteractionStatus } from "@azure/msal-browser";
 import routes from "./routes";
 
@@ -7,35 +7,25 @@ import routes from "./routes";
 import { MsalProvider } from "@azure/msal-react";
 import { IPublicClientApplication } from "@azure/msal-browser";
 import { CustomNavigationClient } from "./utils/NavigationClient";
-import { useEffect, useState } from "react";
 import Loader from "./components/common/Loader";
+import { useSelector } from "react-redux";
 
 type AppProps = {
   pca: IPublicClientApplication;
 };
 
 function App({ pca }: AppProps) {
-  const { accounts } = useMsal();
-  const account = useAccount(accounts[0] || {});
-  const [name, setName] = useState("");
   const { inProgress } = useMsal();
-  const isAuthenticated = useIsAuthenticated();
+  const isAuthenticated = useSelector(
+    (state: any) => state.commonReducer.isAuthenticated
+  );
 
-  const routing = useRoutes(routes(true));
+  const routing = useRoutes(routes(isAuthenticated));
   const navigate = useNavigate();
   const navigationClient = new CustomNavigationClient(navigate);
   pca.setNavigationClient(navigationClient);
 
-  useEffect(() => {
-    if (account && account.name) {
-      setName(account.name.split(" ")[0]);
-    } else {
-      setName("");
-    }
-  }, [account]);
-
   if (isAuthenticated) {
-    // console.log("#####", isAuthenticated);
   } else if (
     inProgress !== InteractionStatus.Startup &&
     inProgress !== InteractionStatus.HandleRedirect
@@ -48,7 +38,6 @@ function App({ pca }: AppProps) {
 
   return (
     <MsalProvider instance={pca}>
-      {/* <div>Name::{name}</div> */}
       {routing}
       <Loader />
     </MsalProvider>

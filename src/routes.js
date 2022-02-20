@@ -1,3 +1,4 @@
+import { Navigate } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/register";
@@ -12,7 +13,7 @@ import { BaseForm } from "./components/shared/BaseForm";
 const routes = (isLoggedIn) => [
   {
     path: "/app",
-    element: <AppLayout />,
+    element: isLoggedIn ? <AppLayout /> : <Navigate to="/login" />,
     children: [
       { path: "dashboard", element: <Dashboard /> },
       {

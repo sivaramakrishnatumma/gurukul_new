@@ -1,21 +1,17 @@
-import React from "react";
-import { styled } from "@mui/material/styles";
-import AppFooter from "../components/layout/AppFooter";
-import MuiCard from "@mui/material/Card";
-import "../styles/login.css";
-import Logo from "../assets/images/logo.jpg";
-import {
-  Button,
-  CardActions,
-  CardContent,
-  Checkbox,
-  FormControlLabel,
-  FormGroup,
-  Grid,
-} from "@mui/material";
-import TextInput from "../components/form/TextInput";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
+import { styled } from "@mui/material/styles";
+import MuiCard from "@mui/material/Card";
+import { CardActions, CardContent } from "@mui/material";
+import { useIsAuthenticated, useMsal } from "@azure/msal-react";
+import AppFooter from "../components/layout/AppFooter";
+import { SignInButton } from "../components/form/SignInButton";
+import Logo from "../assets/images/logo.jpg";
+import { loginRequest } from "../authConfig";
+import { setAuthInfo } from "../redux/actions/common.actions";
+import "../styles/login.css";
 
 const Card = styled(MuiCard)(({ theme }) => ({
   marginTop: "3rem",
@@ -32,6 +28,28 @@ const Card = styled(MuiCard)(({ theme }) => ({
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const isAuthenticated = useIsAuthenticated();
+  const { instance, accounts } = useMsal();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      try {
+        instance
+          .acquireTokenSilent({
+            ...loginRequest,
+            account: accounts[0],
+          })
+          .then((response) => {
+            console.log(response);
+            dispatch(setAuthInfo());
+            navigate("/app/dashboard");
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  });
 
   const gotoRegistration = () => {
     navigate("/register");
@@ -50,8 +68,8 @@ const Login = () => {
             <h3 className="title">Login</h3>
           </div>
           <div className="card-body" style={{ textAlign: "center" }}>
-            {/* <SignInButton /> */}
-            <FormGroup>
+            <SignInButton />
+            {/* <FormGroup>
               <Grid container spacing={2} alignItems="center">
                 <Grid item xs={12}>
                   <TextInput
@@ -84,14 +102,14 @@ const Login = () => {
               <Button variant="contained" className="login-btn" onClick={login}>
                 Login
               </Button>
-            </FormGroup>
+            </FormGroup> */}
           </div>
         </CardContent>
-        <CardActions>
+        {/* <CardActions>
           <div className="small">
             <Link to="/register">Need an account? Sign up!</Link>
           </div>
-        </CardActions>
+        </CardActions> */}
       </Card>
       <AppFooter />
     </div>
