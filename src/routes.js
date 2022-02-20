@@ -2,9 +2,6 @@ import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/register";
 import AppLayout from "./components/layout/AppLayout";
-import AddItems from "./pages/Library/AddItems";
-import ListItems from "./pages/Library/ListItems";
-import SearchItems from "./pages/Library/SearchItems";
 import CheckIn from "./pages/Library/CheckIn";
 import CheckOut from "./pages/Library/CheckOut";
 import TransactionSummary from "./pages/Library/TransactionSummary";
@@ -55,6 +52,15 @@ const routes = (isLoggedIn) => [
       {
         path: "item-update",
         element: <BaseForm key="itemForm" page="item" />,
+      },
+
+      {
+        path: "users-manangement",
+        element: <BaseList key="userList" page="user" title="List Users" />,
+      },
+      {
+        path: "user-update",
+        element: <BaseForm key="userForm" page="user" />,
       },
 
       { path: "check-in-process", element: <CheckIn /> },

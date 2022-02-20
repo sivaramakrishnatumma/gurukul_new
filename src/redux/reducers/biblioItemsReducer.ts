@@ -7,7 +7,6 @@ const initialState = {
 const biblioItemsReducer = (state = initialState, { type, value }: any) => {
   switch (type) {
     case EVT_GET_BIBLIO_ITEMS_LIST_SUCCESS:
-      console.log(state);
       return {
         ...state,
         rows: value,

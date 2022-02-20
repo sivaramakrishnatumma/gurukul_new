@@ -11,23 +11,6 @@ export const NAV_LIST = [
     icon: DashboardIcon,
   },
   {
-    id: 1,
-    name: "User Management",
-    icon: ManageAccountsIcon,
-    children: [
-      {
-        name: "Add User",
-        path: "add-user",
-        parentId: 1,
-      },
-      {
-        name: "List Users",
-        path: "list-users",
-        parentId: 1,
-      },
-    ],
-  },
-  {
     id: 2,
     name: "Library Management",
     icon: LocalLibraryIcon,
@@ -45,6 +28,12 @@ export const NAV_LIST = [
       {
         name: "Items Management",
         path: "items-manangement",
+        parentId: 2,
+      },
+
+      {
+        name: "User Management",
+        path: "users-manangement",
         parentId: 2,
       },
       {

@@ -7,7 +7,6 @@ const initialState = {
 const itemTypesReducer = (state = initialState, { type, value }: any) => {
   switch (type) {
     case EVT_GET_ITEM_TYPES_LIST_SUCCESS:
-      console.log(state);
       return {
         ...state,
         rows: value,

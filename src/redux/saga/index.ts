@@ -15,6 +15,11 @@ import {
   EVT_UPDATE_ITEM,
 } from "../actions/items.actions.types";
 import {
+  EVT_ADD_USER,
+  EVT_GET_USERS_LIST,
+  EVT_UPDATE_USER,
+} from "../actions/users.actions.types";
+import {
   addBiblioItemSaga,
   getBiblioItemsSaga,
   updateBiblioItemSaga,
@@ -25,6 +30,7 @@ import {
   getItemTypesSaga,
   updateItemTypeSaga,
 } from "./itemTypesSaga";
+import { addUserSaga, getUsersSaga, updateUserSaga } from "./usersSaga";
 
 export function* rootSaga() {
   yield takeEvery(EVT_GET_ITEM_TYPES_LIST, getItemTypesSaga);
@@ -38,4 +44,8 @@ export function* rootSaga() {
   yield takeEvery(EVT_GET_ITEMS_LIST, getItemsSaga);
   yield takeEvery(EVT_ADD_ITEM, addItemSaga);
   yield takeEvery(EVT_UPDATE_ITEM, updateItemSaga);
+
+  yield takeEvery(EVT_GET_USERS_LIST, getUsersSaga);
+  yield takeEvery(EVT_ADD_USER, addUserSaga);
+  yield takeEvery(EVT_UPDATE_USER, updateUserSaga);
 }

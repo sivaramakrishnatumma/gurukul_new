@@ -1,20 +1,28 @@
 import { biblioItemColumnConfig } from "../forms-config/biblio-items";
 import { itemTypeColumnConfig } from "../forms-config/item-types";
 import { itemColumnConfig } from "../forms-config/items";
+import { userColumnConfig } from "../forms-config/users";
 import { BiblioItemsActions } from "../redux/actions/biblio-items.actions";
 import { ItemTypesActions } from "../redux/actions/item-types.actions";
 import { ItemsActions } from "../redux/actions/items.actions";
-import { BiblioItemsServices } from "../services/BiblioItemsService";
-import { ItemsServices } from "../services/ItemsService";
-import { ItemTypesServices } from "../services/ItemTypesService";
+import { UsersActions } from "../redux/actions/users.actions";
+import { generateServices } from "../services/DataService";
 import { IFieldConfig } from "./types";
 
 export const BASE_URL = "https://gurukulapi-dev.azurewebsites.net/api/v1";
 
+export const PAGES = {
+  ITEM_TYPE: "itemType",
+  BIBLIO_ITEM: "biblioItem",
+  ITEM: "item",
+  USER: "user"
+};
+
 export const API_URLS = {
-  ITEM_TYPE: BASE_URL + "/ItemType",
-  BIBLIO_ITEM: BASE_URL + "/BiblioItem",
-  ITEM: BASE_URL + "/Item",
+  [PAGES.ITEM_TYPE]: BASE_URL + "/ItemType",
+  [PAGES.BIBLIO_ITEM]: BASE_URL + "/BiblioItem",
+  [PAGES.ITEM]: BASE_URL + "/Item",
+  [PAGES.USER]: BASE_URL + "/User"
 };
 
 interface IConfig {
@@ -24,19 +32,24 @@ interface IConfig {
 }
 
 export const PageConfig: Record<string, IConfig> = {
-  itemType: {
+  [PAGES.ITEM_TYPE]: {
     actions: ItemTypesActions,
-    services: ItemTypesServices,
+    services: generateServices(PAGES.ITEM_TYPE),
     config: itemTypeColumnConfig,
   },
-  biblioItem: {
+  [PAGES.BIBLIO_ITEM]: {
     actions: BiblioItemsActions,
-    services: BiblioItemsServices,
+    services: generateServices(PAGES.BIBLIO_ITEM),
     config: biblioItemColumnConfig,
   },
-  item: {
+  [PAGES.ITEM]: {
     actions: ItemsActions,
-    services: ItemsServices,
+    services: generateServices(PAGES.ITEM),
     config: itemColumnConfig,
   },
+  [PAGES.USER]: {
+    actions: UsersActions,
+    services: generateServices(PAGES.USER),
+    config: userColumnConfig,
+  } 
 };

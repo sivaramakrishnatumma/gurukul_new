@@ -30,12 +30,10 @@ export const titlize = (str: string) => {
   return result.charAt(0).toUpperCase() + result.slice(1);
 };
 
-
 export function handleCatch(error: any) {
   if (axios.isCancel(error)) {
     console.error(error);
   } else {
-    console.log(error);
     throw error;
   }
 }
@@ -46,7 +44,6 @@ export function handleValidationError(response: any) {
     if (data.isValidationError) {
       return data.errors.validationError;
     } else {
-      console.log(data.errors.message);
       return data.errors.message;
     }
   }

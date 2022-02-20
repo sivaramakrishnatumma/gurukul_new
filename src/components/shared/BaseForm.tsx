@@ -50,7 +50,7 @@ export const BaseForm: FC<IProps> = (props) => {
 
   const getFormData = async (id: string) => {
     try {
-      const response = await PageConfig[page].services.getByIdService(id);
+      const response = await PageConfig[page].services.getDataByIdService(id);
       updateFormData(response);
     } catch (error) {
       console.error(error);

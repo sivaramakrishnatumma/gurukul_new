@@ -1,18 +1,18 @@
 import { call, put } from "redux-saga/effects";
+import { PAGES } from "../../constants/config";
 import { history } from "../../history";
+import { generateServices } from "../../services/DataService";
+import { handleValidationError } from "../../utils/utility_fns";
 import {
   EVT_HIDE_LOADER,
   EVT_SHOW_ERROR,
   EVT_SHOW_LOADER,
 } from "../actions/common.actions.types";
-import { EVT_GET_BIBLIO_ITEMS_LIST_SUCCESS } from "../actions/biblio-items.actions.types";
-import { handleValidationError } from "../../utils/utility_fns";
-import { PAGES } from "../../constants/config";
-import { generateServices } from "../../services/DataService";
+import { EVT_GET_USERS_LIST_SUCCESS } from "../actions/users.actions.types";
 
-const service = generateServices(PAGES.BIBLIO_ITEM);
+const service = generateServices(PAGES.USER);
 
-export function* getBiblioItemsSaga() {
+export function* getUsersSaga() {
   try {
     // Showing loader while getting item types list
     yield put({ type: EVT_SHOW_LOADER });
@@ -20,7 +20,7 @@ export function* getBiblioItemsSaga() {
     const response = yield call(service.getDataService);
     if (response.statusCode === 200) {
       yield put({
-        type: EVT_GET_BIBLIO_ITEMS_LIST_SUCCESS,
+        type: EVT_GET_USERS_LIST_SUCCESS,
         value: response.result,
       });
     }
@@ -31,14 +31,14 @@ export function* getBiblioItemsSaga() {
   }
 }
 
-export function* addBiblioItemSaga({ value }) {
+export function* addUserSaga({ value }) {
   try {
     // Showing loader while creating new item type
     yield put({ type: EVT_SHOW_LOADER });
 
     const response = yield call(service.addDataService, value);
     if (response.statusCode === 200) {
-      history.push("biblio-items-manangement");
+      history.push("users-manangement");
       yield put({ type: EVT_HIDE_LOADER });
     }
   } catch (error) {
@@ -52,7 +52,7 @@ export function* addBiblioItemSaga({ value }) {
   }
 }
 
-export function* updateBiblioItemSaga({ value }) {
+export function* updateUserSaga({ value }) {
   try {
     // Showing loader while creating new item type
     yield put({ type: EVT_SHOW_LOADER });
@@ -63,10 +63,11 @@ export function* updateBiblioItemSaga({ value }) {
       value.id
     );
     if (response.statusCode === 200) {
-      history.push("biblio-items-manangement");
+      history.push("users-manangement");
       yield put({ type: EVT_HIDE_LOADER });
     }
   } catch (error) {
+    console.error(error);
     const msg = handleValidationError(error.response);
     if (msg) {
       yield put({ type: EVT_SHOW_ERROR, value: msg });

@@ -1,10 +1,7 @@
 import { call, put } from "redux-saga/effects";
+import { PAGES } from "../../constants/config";
 import { history } from "../../history";
-import {
-  addItemService,
-  getItemsService,
-  updateItemService,
-} from "../../services/ItemsService";
+import { generateServices } from "../../services/DataService";
 import { handleValidationError } from "../../utils/utility_fns";
 import {
   EVT_HIDE_LOADER,
@@ -13,12 +10,14 @@ import {
 } from "../actions/common.actions.types";
 import { EVT_GET_ITEMS_LIST_SUCCESS } from "../actions/items.actions.types";
 
+const service = generateServices(PAGES.ITEM);
+
 export function* getItemsSaga() {
   try {
     // Showing loader while getting item types list
     yield put({ type: EVT_SHOW_LOADER });
 
-    const response = yield call(getItemsService);
+    const response = yield call(service.getDataService);
     if (response.statusCode === 200) {
       yield put({
         type: EVT_GET_ITEMS_LIST_SUCCESS,
@@ -37,7 +36,7 @@ export function* addItemSaga({ value }) {
     // Showing loader while creating new item type
     yield put({ type: EVT_SHOW_LOADER });
 
-    const response = yield call(addItemService, value);
+    const response = yield call(service.addDataService, value);
     if (response.statusCode === 200) {
       history.push("items-manangement");
       yield put({ type: EVT_HIDE_LOADER });
@@ -58,7 +57,11 @@ export function* updateItemSaga({ value }) {
     // Showing loader while creating new item type
     yield put({ type: EVT_SHOW_LOADER });
 
-    const response = yield call(updateItemService, value.data, value.id);
+    const response = yield call(
+      service.updateDataService,
+      value.data,
+      value.id
+    );
     if (response.statusCode === 200) {
       history.push("items-manangement");
       yield put({ type: EVT_HIDE_LOADER });
