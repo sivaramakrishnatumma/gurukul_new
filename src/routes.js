@@ -64,6 +64,17 @@ const routes = (isLoggedIn) => [
         element: <BaseForm key="userForm" page="user" />,
       },
 
+      {
+        path: "borrowers-manangement",
+        element: (
+          <BaseList key="borrowerList" page="borrower" title="List Borrowers" />
+        ),
+      },
+      {
+        path: "borrower-update",
+        element: <BaseForm key="borrowerForm" page="borrower" />,
+      },
+
       { path: "check-in-process", element: <CheckIn /> },
       { path: "check-out-process", element: <CheckOut /> },
       // { path: "checkOutSummery", element: <CheckOutSummary /> },

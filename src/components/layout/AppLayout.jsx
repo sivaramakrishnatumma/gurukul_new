@@ -7,6 +7,7 @@ import AppSideNav from "./AppSideNav";
 import { useSelector } from "react-redux";
 import { Outlet } from "react-router";
 import { AppAlert } from "../common/AppAlert";
+import AppFooter from "./AppFooter";
 
 const drawerWidth = 225;
 
@@ -44,9 +45,16 @@ export const AppLayout = (props) => {
       <CssBaseline />
       <AppHeader setOpen={setOpen} />
       <AppSideNav open={menuOpen} setOpen={setOpen} />
-      <Main open={menuOpen} sx={{ mt: "56px" }}>
+      <Main
+        open={menuOpen}
+        sx={{
+          mt: "56px",
+          pb: "80px"
+        }}
+      >
         {alert && <AppAlert alert={alert} />}
         <Outlet />
+        <AppFooter />
       </Main>
     </Box>
   );

@@ -19,7 +19,7 @@ const commonReducer = (state = initialState, { type, value }: any) => {
       return {
         ...state,
         isAuthenticated: true,
-        loggedInfo: {},
+        loggedInfo: value,
       };
     case EVT_TOGGLE_SIDE_NAV:
       return {

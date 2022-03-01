@@ -37,6 +37,11 @@ export const NAV_LIST = [
         parentId: 2,
       },
       {
+        name: "Borrowers Management",
+        path: "borrowers-manangement",
+        parentId: 2,
+      },
+      {
         name: "Check-in Process",
         path: "check-in-process",
         parentId: 2,

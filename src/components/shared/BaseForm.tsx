@@ -22,7 +22,7 @@ const ComponentsMap: any = {
   dropdown: BaseDropDownSelect,
   number: BaseTextInput,
   checkbox: BaseCheckBox,
-  date: BaseDatePicker
+  date: BaseDatePicker,
 };
 
 /**
@@ -86,6 +86,11 @@ export const BaseForm: FC<IProps> = (props) => {
       if (item.type === "number") {
         acc[item.field] = parseInt(acc[item.field]);
       }
+      
+      if (item.type === "date") {
+        acc[item.field] = new Date(acc[item.field]).toISOString();
+      }
+
       return acc;
     }, {});
 
@@ -101,6 +106,8 @@ export const BaseForm: FC<IProps> = (props) => {
     <>
       <h1 className="mt-4">Library Management</h1>
       <Breadcrumb path={["Library Management", `${action} ${titlize(page)}`]} />
+
+      <div className="action-bar"></div>
 
       <LayoutCard title={titlize(page)}>
         <ValidatorForm onSubmit={handleformSubmit}>

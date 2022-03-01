@@ -42,7 +42,7 @@ const Login = () => {
           })
           .then((response) => {
             console.log(response);
-            dispatch(setAuthInfo());
+            dispatch(setAuthInfo(response));
             navigate("/app/dashboard");
           });
       } catch (error) {

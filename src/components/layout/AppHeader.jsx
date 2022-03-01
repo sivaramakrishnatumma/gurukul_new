@@ -7,6 +7,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Logo from "../../assets/images/logo.jpg";
 import SearchBar from "../common/SearchBar";
 import { toggleSideNav } from "../../redux/actions/common.actions";
+import { SignOutbutton } from "../form/SignOutButton";
 
 const AppBar = styled(MuiAppBar)(({ theme }) => ({
   flexDirection: "row",
@@ -46,6 +47,7 @@ const AppHeader = () => {
       </div>
       <div className="right" style={{ display: "flex" }}>
         <SearchBar />
+        <SignOutbutton />
       </div>
     </AppBar>
   );

@@ -49,7 +49,9 @@ export const BaseList: FC<IProps> = (props) => {
   }
 
   const generateColumns = (page: string) => {
-    const columns: GridColDef[] = PageConfig[page].config
+    const columns: GridColDef[] = (
+      PageConfig[page].tableConfig || PageConfig[page].config
+    )
       .filter((item) => !item.hidden)
       .map((item) => ({
         field: item.field,
@@ -81,7 +83,11 @@ export const BaseList: FC<IProps> = (props) => {
 
       <LayoutCard title={title}>
         <div style={{ height: 300, width: "100%" }}>
-          <DataGrid rows={rows} columns={generateColumns(page)} />
+          <DataGrid
+            rows={rows}
+            columns={generateColumns(page)}
+            disableColumnMenu
+          />
         </div>
       </LayoutCard>
     </>

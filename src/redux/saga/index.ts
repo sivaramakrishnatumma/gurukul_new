@@ -5,6 +5,11 @@ import {
   EVT_UPDATE_BIBLIO_ITEM,
 } from "../actions/biblio-items.actions.types";
 import {
+  EVT_ADD_BORROWER,
+  EVT_GET_BORROWERS_LIST,
+  EVT_UPDATE_BORROWER,
+} from "../actions/borrowers.actions.types";
+import {
   EVT_ADD_ITEM_TYPE,
   EVT_GET_ITEM_TYPES_LIST,
   EVT_UPDATE_ITEM_TYPE,
@@ -24,6 +29,11 @@ import {
   getBiblioItemsSaga,
   updateBiblioItemSaga,
 } from "./biblioItemsSaga";
+import {
+  addBorrowerSaga,
+  getBorrowersSaga,
+  updateBorrowerSaga,
+} from "./borrowersSaga";
 import { addItemSaga, getItemsSaga, updateItemSaga } from "./itemsSaga";
 import {
   addItemTypeSaga,
@@ -48,4 +58,8 @@ export function* rootSaga() {
   yield takeEvery(EVT_GET_USERS_LIST, getUsersSaga);
   yield takeEvery(EVT_ADD_USER, addUserSaga);
   yield takeEvery(EVT_UPDATE_USER, updateUserSaga);
+
+  yield takeEvery(EVT_GET_BORROWERS_LIST, getBorrowersSaga);
+  yield takeEvery(EVT_ADD_BORROWER, addBorrowerSaga);
+  yield takeEvery(EVT_UPDATE_BORROWER, updateBorrowerSaga);
 }
