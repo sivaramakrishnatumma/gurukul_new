@@ -9,4 +9,5 @@ export interface IFieldConfig {
   dataSource?: string;
   valueField?: string;
   displayField?: string;
+  displayFieldCalc?: Function;
 }

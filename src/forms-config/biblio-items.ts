@@ -9,6 +9,7 @@ export const biblioItemColumnConfig: IFieldConfig[] = [
     dataSource: "/ItemType",
     valueField: "itemTypeCode",
     displayField: "itemTypeCode",
+    displayFieldCalc: (item: any) => `${item.name} - ${item.itemTypeCode}`,
   },
   {
     field: "isbn",

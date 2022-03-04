@@ -29,18 +29,6 @@ export const itemColumnConfig: IFieldConfig[] = [
     required: true,
   },
   {
-    field: "replacementPriceDate",
-    title: "Replacement Price Date",
-    type: "date",
-    required: true,
-  },
-  {
-    field: "dateLastBorrowed",
-    title: "Date Last Borrowed",
-    type: "date",
-    required: true,
-  },
-  {
     field: "notForLoan",
     title: "Not For Loan",
     type: "checkbox",
@@ -85,14 +73,11 @@ export const itemColumnConfig: IFieldConfig[] = [
   {
     field: "branchCode",
     title: "Branch Code",
-    type: "string",
+    type: "dropdown",
     required: true,
-  },
-  {
-    field: "onloan",
-    title: "Onloan",
-    type: "date",
-    required: true,
+    dataSource: "/Branch",
+    valueField: "branch_code",
+    displayField: "branch_name",
   },
   {
     field: "imageurl",

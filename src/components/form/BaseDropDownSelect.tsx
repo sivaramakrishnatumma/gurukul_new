@@ -32,7 +32,7 @@ const BootstrapInput = styled(InputBase)(({ theme }: any) => ({
     borderRadius: 4,
     position: "relative",
     backgroundColor: theme.palette.mode === "light" ? "#fcfcfb" : "#2b2b2b",
-    border: "1px solid #ced4da",
+    border: "1px solid #9EA3A6",
     fontSize: 16,
     width: "100%",
     padding: "10px 12px",
@@ -83,7 +83,9 @@ class DropdownValidatorComponent extends ValidatorComponent {
         <Select {...rest} input={<BootstrapInput />}>
           {source.map((item: any, index: number) => (
             <MenuItem key={index} value={item[config.valueField || "value"]}>
-              {item[config.displayField || "name"]}
+              {config.displayFieldCalc
+                ? config.displayFieldCalc(item)
+                : item[config.displayField || "name"]}
             </MenuItem>
           ))}
         </Select>
